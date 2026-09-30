@@ -26,6 +26,26 @@ class FdroidIndexParserTest {
             "https://burton-workspaces.github.io/burton-sonos-fdroid/fdroid/repo/icons-640/com.burton.sonos.png",
             app.iconUrl,
         )
+        assertTrue(
+            app.iconUrls.contains(
+                "https://burton-workspaces.github.io/burton-sonos-fdroid/fdroid/repo/icons/com.burton.sonos.png",
+            ),
+        )
+    }
+
+    @Test
+    fun iconUrlsPreferNamedFileAcrossDensities() {
+        val urls = FdroidIndexParser.iconUrls(
+            "https://host/fdroid/repo/",
+            "com.example.app",
+            "com.example.app.4.png",
+        )
+        assertEquals(
+            "https://host/fdroid/repo/icons-640/com.example.app.4.png",
+            urls.first(),
+        )
+        assertTrue(urls.contains("https://host/fdroid/repo/icons-480/com.example.app.4.png"))
+        assertTrue(urls.contains("https://host/fdroid/repo/icons-640/com.example.app.png"))
     }
 
     @Test

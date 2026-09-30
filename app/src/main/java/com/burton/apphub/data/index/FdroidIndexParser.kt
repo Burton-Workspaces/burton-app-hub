@@ -47,7 +47,7 @@ object FdroidIndexParser {
                         name = app.optString("name").ifBlank { packageName },
                         summary = app.optString("summary"),
                         description = stripHtml(app.optString("description")),
-                        iconUrl = iconUrl(address, packageName, app.optString("icon").ifBlank { null }),
+                        iconUrls = iconUrls(address, packageName, app.optString("icon").ifBlank { null }),
                         license = app.optString("license").ifBlank { "Unknown" },
                         categories = stringList(app.optJSONArray("categories")),
                         repoId = repoId,
@@ -80,7 +80,7 @@ object FdroidIndexParser {
                         name = localized(metadata.optJSONObject("name")).ifBlank { packageName },
                         summary = localized(metadata.optJSONObject("summary")),
                         description = stripHtml(localized(metadata.optJSONObject("description"))),
-                        iconUrl = iconUrl(address, packageName, iconName),
+                        iconUrls = iconUrls(address, packageName, iconName),
                         license = metadata.optString("license").ifBlank { "Unknown" },
                         categories = stringList(metadata.optJSONArray("categories")),
                         repoId = repoId,
@@ -141,17 +141,30 @@ object FdroidIndexParser {
         }.sortedByDescending { it.versionCode }
     }
 
-    fun iconUrl(address: String, packageName: String, icon: String?): String {
+    fun iconUrls(address: String, packageName: String, icon: String?): List<String> {
         val base = normalizeAddress(address)
-        val named = icon?.trim()?.trimStart('/')?.takeIf { it.isNotBlank() && !it.equals("icon.png", ignoreCase = true) }
-        return if (named != null) {
-            if (named.startsWith("http")) named
-            else if (named.contains('/')) "$base/$named"
-            else "$base/icons/$named"
-        } else {
-            "$base/icons-640/$packageName.png"
-        }
+        val names = buildList {
+            val named = icon?.trim()?.trimStart('/')?.takeIf { it.isNotBlank() }
+            if (!named.isNullOrBlank() && !named.equals("icon.png", ignoreCase = true)) {
+                add(named)
+            }
+            add("$packageName.png")
+            add("$packageName.webp")
+        }.distinct()
+        val folders = listOf("icons-640", "icons-480", "icons-320", "icons-240", "icons-160", "icons-120", "icons")
+        return buildList {
+            names.forEach { name ->
+                when {
+                    name.startsWith("http://") || name.startsWith("https://") -> add(name)
+                    name.contains('/') -> add("$base/${name.trimStart('/')}")
+                    else -> folders.forEach { folder -> add("$base/$folder/$name") }
+                }
+            }
+        }.distinct()
     }
+
+    fun iconUrl(address: String, packageName: String, icon: String?): String =
+        iconUrls(address, packageName, icon).first()
 
     fun apkUrl(address: String, apkName: String): String {
         val base = normalizeAddress(address)

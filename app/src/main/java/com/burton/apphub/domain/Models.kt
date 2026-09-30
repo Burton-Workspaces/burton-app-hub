@@ -25,7 +25,7 @@ data class CatalogApp(
     val name: String,
     val summary: String,
     val description: String,
-    val iconUrl: String?,
+    val iconUrls: List<String>,
     val license: String,
     val categories: List<String>,
     val repoId: String,
@@ -36,6 +36,9 @@ data class CatalogApp(
 ) {
     val suggested: ApkVersion?
         get() = versions.maxByOrNull { it.versionCode }
+
+    val iconUrl: String?
+        get() = iconUrls.firstOrNull()
 
     val isInstalled: Boolean
         get() = installedVersionCode != null

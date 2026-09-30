@@ -41,7 +41,7 @@ fun AppRow(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(14.dp),
     ) {
-        AppIcon(url = app.iconUrl, size = 48.dp, corner = 12.dp)
+        AppIcon(app = app, size = 48.dp, corner = 12.dp)
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 app.name,

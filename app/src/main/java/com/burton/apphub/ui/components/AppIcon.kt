@@ -13,46 +13,56 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import coil.request.ImageRequest
+import com.burton.apphub.data.icon.AppIconKey
+import com.burton.apphub.domain.CatalogApp
 import com.burton.apphub.ui.theme.BurtonElevated
 import com.burton.apphub.ui.theme.BurtonMute
 
 @Composable
 fun AppIcon(
-    url: String?,
+    app: CatalogApp,
     modifier: Modifier = Modifier,
     size: Dp = 48.dp,
     corner: Dp = 10.dp,
 ) {
     val shape = RoundedCornerShape(corner)
     val fallback = rememberVectorPainter(Icons.Rounded.Android)
-    if (url.isNullOrBlank()) {
-        Box(
-            modifier = modifier
-                .size(size)
-                .clip(shape)
-                .background(BurtonElevated),
-            contentAlignment = Alignment.Center,
-        ) {
-            Icon(
-                imageVector = Icons.Rounded.Android,
-                contentDescription = null,
-                tint = BurtonMute,
-            )
-        }
-    } else {
+    Box(
+        modifier = modifier
+            .size(size)
+            .clip(shape)
+            .background(BurtonElevated),
+        contentAlignment = Alignment.Center,
+    ) {
+        Icon(
+            imageVector = Icons.Rounded.Android,
+            contentDescription = null,
+            tint = BurtonMute,
+        )
         AsyncImage(
-            model = url,
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(
+                    AppIconKey(
+                        packageName = app.packageName,
+                        iconUrls = app.iconUrls,
+                        apkUrl = app.suggested?.url,
+                        installed = app.isInstalled,
+                    ),
+                )
+                .crossfade(true)
+                .build(),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             placeholder = fallback,
             error = fallback,
-            modifier = modifier
+            modifier = Modifier
                 .size(size)
-                .clip(shape)
-                .background(BurtonElevated),
+                .clip(shape),
         )
     }
 }

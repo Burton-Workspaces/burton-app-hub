@@ -75,7 +75,7 @@ fun AppDetailScreen(
                 horizontalArrangement = Arrangement.spacedBy(14.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                AppIcon(url = app.iconUrl, size = 72.dp, corner = 16.dp)
+                AppIcon(app = app, size = 72.dp, corner = 16.dp)
                 Column(modifier = Modifier.weight(1f)) {
                     Text(app.name, style = MaterialTheme.typography.titleLarge, color = BurtonIvory)
                     Text(app.packageName, style = MaterialTheme.typography.bodyMedium, color = BurtonMute)

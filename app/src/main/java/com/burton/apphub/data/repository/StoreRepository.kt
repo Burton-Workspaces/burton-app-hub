@@ -249,7 +249,10 @@ class StoreRepository @Inject constructor(
     private fun mergeApps(apps: List<CatalogApp>): List<CatalogApp> {
         return apps.groupBy { it.packageName }.values.map { group ->
             val primary = group.maxBy { it.suggested?.versionCode ?: 0L }
-            primary.copy(versions = group.flatMap { it.versions }.distinctBy { it.versionCode }.sortedByDescending { it.versionCode })
+            primary.copy(
+                versions = group.flatMap { it.versions }.distinctBy { it.versionCode }.sortedByDescending { it.versionCode },
+                iconUrls = group.flatMap { it.iconUrls }.distinct(),
+            )
         }.sortedBy { it.name.lowercase() }
     }
 
