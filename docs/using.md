@@ -29,9 +29,13 @@ Only installed apps whose repository `versionCode` is higher than the installed 
 
 ### Settings
 
-- **About** — app name and `versionName` from `version.txt`
+- **About** — app name and `versionName` from `version.txt`. Long-press files an issue.
 - **Auto update** — a 6-hour WorkManager check; notifies when updates exist (does not silently install — Android still shows the system installer)
 - **Repositories** — enable, disable, or remove a source; **+** adds another F-Droid repo URL (optional SHA-256 fingerprint, stored for display)
+
+### File an issue
+
+Shake the phone, or long-press **About** in Settings. Burton Issues opens on New issue with this app already selected. Nothing is posted until you submit; Back cancels.
 
 Default repository:
 

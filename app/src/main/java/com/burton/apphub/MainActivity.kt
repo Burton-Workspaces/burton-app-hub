@@ -30,6 +30,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.burton.apphub.report.ShakeToReport
 import com.burton.apphub.ui.apps.AppDetailScreen
 import com.burton.apphub.ui.apps.AppsScreen
 import com.burton.apphub.ui.navigation.Routes
@@ -43,6 +44,8 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    private val shakeToReport by lazy { ShakeToReport(this) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -52,6 +55,16 @@ class MainActivity : ComponentActivity() {
                 BurtonApp(initialTab = initialTab)
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        shakeToReport.start()
+    }
+
+    override fun onPause() {
+        shakeToReport.stop()
+        super.onPause()
     }
 
     companion object {
