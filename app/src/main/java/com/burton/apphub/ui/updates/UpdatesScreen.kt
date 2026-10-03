@@ -31,6 +31,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.burton.apphub.ui.components.AppRow
 import com.burton.apphub.ui.components.AppsSkeleton
+import com.burton.apphub.ui.components.EmptyStatePanel
 import com.burton.apphub.ui.theme.BurtonIvory
 import com.burton.apphub.ui.theme.BurtonMute
 import com.burton.apphub.ui.theme.BurtonSand
@@ -66,24 +67,27 @@ fun UpdatesScreen(
                 }
             }
         }
-        Text(
-            text = when {
-                snapshot.refreshing && snapshot.apps.isEmpty() -> "Checking repositories"
-                updates.isEmpty() -> "Everything is up to date"
-                updates.size == 1 -> "1 update available"
-                else -> "${updates.size} updates available"
-            },
-            style = MaterialTheme.typography.bodyMedium,
-            color = BurtonMute,
-        )
-        Spacer(Modifier.height(16.dp))
         when {
-            snapshot.refreshing && snapshot.apps.isEmpty() -> AppsSkeleton(count = 3)
-            updates.isEmpty() -> Text(
-                "Installed apps that have a newer package in your repositories will show up here.",
-                color = BurtonMute,
-            )
+            snapshot.refreshing && snapshot.apps.isEmpty() -> {
+                Text(
+                    "Checking repositories",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = BurtonMute,
+                )
+                Spacer(Modifier.height(16.dp))
+                AppsSkeleton(count = 3)
+            }
+            updates.isEmpty() -> {
+                Spacer(Modifier.height(16.dp))
+                EmptyStatePanel(title = "Everything is up to date")
+            }
             else -> {
+                Text(
+                    text = if (updates.size == 1) "1 update available" else "${updates.size} updates available",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = BurtonMute,
+                )
+                Spacer(Modifier.height(16.dp))
                 Button(
                     onClick = viewModel::updateAll,
                     colors = ButtonDefaults.buttonColors(containerColor = BurtonIvory, contentColor = BurtonVoid),
