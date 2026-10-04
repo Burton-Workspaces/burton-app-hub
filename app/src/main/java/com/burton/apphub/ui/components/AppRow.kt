@@ -50,13 +50,16 @@ fun AppRow(
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )
-            Text(
-                subtitle(app, job),
-                style = MaterialTheme.typography.bodyMedium,
-                color = BurtonMute,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-            )
+            val subtitle = subtitle(app, job)
+            if (subtitle.isNotBlank()) {
+                Text(
+                    subtitle,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = BurtonMute,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
             if (job != null && job.stage == InstallJob.Stage.DOWNLOADING) {
                 LinearProgressIndicator(
                     progress = { job.progress },
@@ -85,12 +88,5 @@ fun AppRow(
 
 private fun subtitle(app: CatalogApp, job: InstallJob?): String {
     if (job?.error != null) return job.error
-    val summary = app.summary.ifBlank { app.packageName }
-    val version = app.suggested?.versionName
-    return when {
-        app.hasUpdate -> "${app.installedVersionName ?: app.installedVersionCode} → ${app.suggested?.versionName}"
-        version.isNullOrBlank() -> summary
-        summary == app.packageName -> version
-        else -> "$summary · $version"
-    }
+    return app.installedVersionName ?: app.installedVersionCode?.toString().orEmpty()
 }
