@@ -9,7 +9,7 @@ class FdroidIndexParserTest {
     fun parseV1BurtonWorkspaces() {
         val parsed = FdroidIndexParser.parse(INDEX_V1, "https://example.invalid/fdroid/repo", "burton")
         assertEquals("Burton Workspaces", parsed.repoName)
-        assertEquals("https://burton-workspaces.github.io/burton-sonos-fdroid/fdroid/repo", parsed.repoAddress)
+        assertEquals("https://burton-workspaces.github.io/burton-app-dist/fdroid/repo", parsed.repoAddress)
         assertEquals(1, parsed.apps.size)
         val app = parsed.apps.single()
         assertEquals("com.burton.sonos", app.packageName)
@@ -19,16 +19,16 @@ class FdroidIndexParserTest {
         assertEquals("1.4.1", app.suggested?.versionName)
         assertEquals(1_004_001L, app.suggested?.versionCode)
         assertEquals(
-            "https://burton-workspaces.github.io/burton-sonos-fdroid/fdroid/repo/burton-sonos-1.4.1.apk",
+            "https://burton-workspaces.github.io/burton-app-dist/fdroid/repo/burton-sonos-1.4.1.apk",
             app.suggested?.url,
         )
         assertEquals(
-            "https://burton-workspaces.github.io/burton-sonos-fdroid/fdroid/repo/icons-640/com.burton.sonos.png",
+            "https://burton-workspaces.github.io/burton-app-dist/fdroid/repo/icons-640/com.burton.sonos.png",
             app.iconUrl,
         )
         assertTrue(
             app.iconUrls.contains(
-                "https://burton-workspaces.github.io/burton-sonos-fdroid/fdroid/repo/icons/com.burton.sonos.png",
+                "https://burton-workspaces.github.io/burton-app-dist/fdroid/repo/icons/com.burton.sonos.png",
             ),
         )
     }
@@ -79,7 +79,7 @@ class FdroidIndexParserTest {
                 "version": 20002,
                 "name": "Burton Workspaces",
                 "icon": "icon.png",
-                "address": "https://burton-workspaces.github.io/burton-sonos-fdroid/fdroid/repo",
+                "address": "https://burton-workspaces.github.io/burton-app-dist/fdroid/repo",
                 "description": "Apps."
               },
               "apps": [
@@ -118,7 +118,7 @@ class FdroidIndexParserTest {
               "repo": {
                 "name": { "en-US": "Burton Workspaces" },
                 "description": { "en-US": "Apps." },
-                "address": "https://burton-workspaces.github.io/burton-sonos-fdroid/fdroid/repo",
+                "address": "https://burton-workspaces.github.io/burton-app-dist/fdroid/repo",
                 "timestamp": 1790781809000
               },
               "packages": {

@@ -40,7 +40,7 @@ Shake the phone, or long-press **About** in Settings. Burton Issues opens on New
 Default repository:
 
 ```
-https://burton-workspaces.github.io/burton-sonos-fdroid/fdroid/repo
+https://burton-workspaces.github.io/burton-app-dist/fdroid/repo
 ```
 
 Fingerprint: `D5 17 D0 45 B3 E2 FB 29 7C 0E C0 BB A1 7A FF 03 48 8A 4B B4 EF 43 13 31 A3 A1 C3 FB 46 A5 EF B6`

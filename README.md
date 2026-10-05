@@ -2,7 +2,7 @@
 
 An F-Droid-style client for Burton Workspaces apps. The phone reads F-Droid repository indexes, lists packages, and installs APKs through the system package installer.
 
-Signed APKs are published on [GitHub Releases](https://github.com/Burton-Workspaces/burton-app-hub/releases). Droidify / F-Droid: [burton-sonos-fdroid](https://github.com/Burton-Workspaces/burton-sonos-fdroid) (`https://burton-workspaces.github.io/burton-sonos-fdroid/fdroid/repo`). Add more repositories from Settings.
+Signed APKs are published on [GitHub Releases](https://github.com/Burton-Workspaces/burton-app-hub/releases). Droidify / F-Droid: [burton-app-dist](https://github.com/Burton-Workspaces/burton-app-dist) (`https://burton-workspaces.github.io/burton-app-dist/fdroid/repo`). Add more repositories from Settings.
 
 ## What it does
 

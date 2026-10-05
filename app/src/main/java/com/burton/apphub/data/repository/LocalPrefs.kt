@@ -95,7 +95,7 @@ class LocalPrefs @Inject constructor(
             return buildList {
                 for (i in 0 until array.length()) {
                     val obj = array.optJSONObject(i) ?: continue
-                    val address = obj.optString("address")
+                    val address = DefaultRepos.migrateAddress(obj.optString("address"))
                     if (address.isBlank()) continue
                     add(
                         Repo(

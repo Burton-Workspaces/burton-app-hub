@@ -90,15 +90,22 @@ data class StoreSnapshot(
 
 object DefaultRepos {
     const val BURTON_WORKSPACES_ID = "burton-workspaces"
+    const val BURTON_WORKSPACES_ADDRESS =
+        "https://burton-workspaces.github.io/burton-app-dist/fdroid/repo"
+    private const val LEGACY_BURTON_WORKSPACES_ADDRESS =
+        "https://burton-workspaces.github.io/burton-sonos-fdroid/fdroid/repo"
 
     val burtonWorkspaces = Repo(
         id = BURTON_WORKSPACES_ID,
         name = "Burton Workspaces",
-        address = "https://burton-workspaces.github.io/burton-sonos-fdroid/fdroid/repo",
+        address = BURTON_WORKSPACES_ADDRESS,
         fingerprint = "D517D045B3E2FB297C0EC0BBA17AFF03488A4BB4EF431331A3A1C3FB46A5EFB6",
         enabled = true,
         description = "Apps published by Burton Workspaces.",
     )
 
     val seed = listOf(burtonWorkspaces)
+
+    fun migrateAddress(address: String): String =
+        address.replace(LEGACY_BURTON_WORKSPACES_ADDRESS, BURTON_WORKSPACES_ADDRESS, ignoreCase = true)
 }

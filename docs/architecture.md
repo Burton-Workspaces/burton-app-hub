@@ -20,7 +20,7 @@ Each source is an F-Droid repo URL. Fetch order:
 2. `{address}/index-v2.json`
 3. `{address}/index-v1.jar` (zip; first `index-v1.json` / `index-v2.json` entry)
 
-Default seed is Burton Workspaces (`https://burton-workspaces.github.io/burton-sonos-fdroid/fdroid/repo`). Extra repos and the auto-update flag live in DataStore (`burton_app_hub`).
+Default seed is Burton Workspaces (`https://burton-workspaces.github.io/burton-app-dist/fdroid/repo`). Extra repos and the auto-update flag live in DataStore (`burton_app_hub`).
 
 Packages that appear in more than one enabled repo are merged; the highest `versionCode` wins.
 
