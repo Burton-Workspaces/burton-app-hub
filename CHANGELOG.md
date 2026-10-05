@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Automatic releases are produced by [release-please](https://github.com/googleapis/release-please)
 from [Conventional Commits](https://www.conventionalcommits.org/).
 
+## [1.2.1](https://github.com/Burton-Workspaces/burton-app-hub/compare/v1.2.0...v1.2.1) (2026-10-05)
+
+
+### Bug Fixes
+
+* **apps:** show installed version under app titles ([aa4a824](https://github.com/Burton-Workspaces/burton-app-hub/commit/aa4a8249d8d6bf315fe92189361e3e9cdd5f0451))
+
 ## [1.2.0](https://github.com/Burton-Workspaces/burton-app-hub/compare/v1.1.1...v1.2.0) (2026-10-03)
 
 
